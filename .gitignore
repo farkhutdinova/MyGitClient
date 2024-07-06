@@ -1,4 +1,4 @@
 
 /MyGitClient/.idea
-/MyGitClient/MyGitClient.Executable/bin
-/MyGitClient/MyGitClient.Executable/obj
+/MyGitClient/**/bin
+/MyGitClient/**/obj
