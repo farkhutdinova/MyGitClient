@@ -1,30 +1,24 @@
 ﻿using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Avalonia.Platform.Storage;
 using ReactiveUI;
 
 namespace MyGitClient.Executable.ViewModels;
 
-public class MainWindowViewModel : ViewModelBase
+public partial class MainWindowViewModel : ViewModelBase
 {
-    private readonly IStorageProvider _storageProvider;
+    private string? _selectedFolder;
 
-    public MainWindowViewModel(IStorageProvider storageProvider)
+    public MainWindowViewModel()
     {
-        _storageProvider = storageProvider;
-        OpenNewRepoCommand = ReactiveCommand.CreateFromTask(OpenNewRepoTask);
+        OpenNewRepoCommand = ReactiveCommand.CreateFromTask(SelectFolderAsync);
     }
 
-    private async Task OpenNewRepoTask()
-    {
-        var storageFiles = await _storageProvider.OpenFolderPickerAsync(
-            new FolderPickerOpenOptions
-            {
-                Title = "Select folder to open as a repository"
-            });
+    public Interaction<string, string?> SelectFilesInteraction { get; } = new();
 
-        var folder = storageFiles.Count == 0 ? null : storageFiles[0].Path.LocalPath;
+    private async Task SelectFolderAsync()
+    {
+        _selectedFolder = await SelectFilesInteraction.Handle("Hello from Avalonia");
     }
 
     public ReactiveCommand<Unit, Unit> OpenNewRepoCommand { get; }

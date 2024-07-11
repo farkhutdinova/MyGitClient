@@ -11,7 +11,7 @@ public class MainViewTests
     {
         var window = new MainWindow
         {
-            DataContext = new MainWindowViewModel(null)
+            DataContext = new MainWindowViewModel()
         };
 
         window.Show();
