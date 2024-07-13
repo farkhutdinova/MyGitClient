@@ -5,21 +5,21 @@ using ReactiveUI;
 
 namespace MyGitClient.Executable.ViewModels;
 
-public partial class MainWindowViewModel : ViewModelBase
+public class MainWindowViewModel : ViewModelBase
 {
-    private string? _selectedFolder;
-
     public MainWindowViewModel()
     {
-        OpenNewRepoCommand = ReactiveCommand.CreateFromTask(SelectFolderAsync);
+        BrowseRepoCommand = ReactiveCommand.CreateFromTask(SelectFolderAsync);
     }
 
-    public Interaction<string, string?> SelectFilesInteraction { get; } = new();
+    public string SelectedFolderPath { get; private set; }
+
+    public Interaction<string, string> SelectFolder { get; } = new();
 
     private async Task SelectFolderAsync()
     {
-        _selectedFolder = await SelectFilesInteraction.Handle("Hello from Avalonia");
+        SelectedFolderPath = await SelectFolder.Handle("Select a repository to open");
     }
 
-    public ReactiveCommand<Unit, Unit> OpenNewRepoCommand { get; }
+    public ReactiveCommand<Unit, Unit> BrowseRepoCommand { get; }
 }

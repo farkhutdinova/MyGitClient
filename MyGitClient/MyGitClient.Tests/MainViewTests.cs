@@ -7,11 +7,14 @@ namespace MyGitClient.Tests;
 public class MainViewTests
 {
     [AvaloniaFact]
-    public void CanBrowseNewRepo()
+    public void CanBrowseRepo()
     {
+        var vm = new MainWindowViewModel();
+        vm.SelectFolder.RegisterHandler(interaction => interaction.SetOutput("MyPath"));
+
         var window = new MainWindow
         {
-            DataContext = new MainWindowViewModel()
+            DataContext = vm
         };
 
         window.Show();
@@ -20,5 +23,16 @@ public class MainViewTests
         Assert.NotNull(openNewRepoButton);
         Assert.NotNull(openNewRepoButton.Command);
         Assert.True(openNewRepoButton.Command.CanExecute(null));
+    }
+
+    [AvaloniaFact]
+    public void CanSelectFolder()
+    {
+        var vm = new MainWindowViewModel();
+        vm.SelectFolder.RegisterHandler(interaction => interaction.SetOutput("MyPath"));
+
+        vm.BrowseRepoCommand.Execute();
+
+        Assert.Equal("MyPath", vm.SelectedFolderPath);
     }
 }
