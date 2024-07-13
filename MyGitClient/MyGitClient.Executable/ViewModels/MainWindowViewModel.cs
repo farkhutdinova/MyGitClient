@@ -1,4 +1,5 @@
-﻿using System.Reactive;
+﻿using System.Collections.ObjectModel;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using ReactiveUI;
@@ -12,7 +13,7 @@ public class MainWindowViewModel : ViewModelBase
         BrowseRepoCommand = ReactiveCommand.CreateFromTask(SelectFolderAsync);
     }
 
-    public string SelectedFolderPath { get; private set; }
+    public string SelectedFolderPath { get; private set; } = string.Empty;
 
     public Interaction<string, string> SelectFolder { get; } = new();
 
@@ -22,4 +23,6 @@ public class MainWindowViewModel : ViewModelBase
     }
 
     public ReactiveCommand<Unit, Unit> BrowseRepoCommand { get; }
+
+    public ObservableCollection<string> PreviouslyOpenedRepositories { get; set; }
 }

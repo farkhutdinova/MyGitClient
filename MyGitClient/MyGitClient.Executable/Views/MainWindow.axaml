@@ -3,18 +3,38 @@
         xmlns:vm="using:MyGitClient.Executable.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d"
+        d:DesignWidth="600" d:DesignHeight="450"
         x:Class="MyGitClient.Executable.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
+        Width="600" Height="450"
+        WindowStartupLocation="CenterScreen"
         Icon="/Assets/avalonia-logo.ico"
         Title="MyGitClient">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <Button Name="OpenButton" Content="Browse" Command="{Binding BrowseRepoCommand}"/>
+    <StackPanel Margin="10">
+        <Grid RowDefinitions="*,*,Auto">
+            <DockPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,10">
+                <Label DockPanel.Dock="Left" VerticalContentAlignment="Center" Content="Open existing repository"/>
+                <Button DockPanel.Dock="Right" VerticalContentAlignment="Center" Name="OpenButton" Content="Browse" Command="{Binding BrowseRepoCommand}"/>
+            </DockPanel>
+            <TextBlock Grid.Row="1" Text="Previously opened:" Margin="0,0,0,10"/>
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible">
+                <ItemsControl ItemsSource="{Binding PreviouslyOpenedRepositories}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,5" Padding="10" Background="LightGray">
+                                <TextBlock Text="{Binding}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </StackPanel>
 
 </Window>
