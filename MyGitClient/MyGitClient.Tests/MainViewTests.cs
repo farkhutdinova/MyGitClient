@@ -10,8 +10,7 @@ public class MainViewTests
     public void CanBrowseRepo()
     {
         var vm = new MainWindowViewModel();
-        vm.SelectFolder.RegisterHandler(interaction => interaction.SetOutput("MyPath"));
-
+        
         var window = new MainWindow
         {
             DataContext = vm
@@ -19,20 +18,23 @@ public class MainViewTests
 
         window.Show();
 
-        var openNewRepoButton = window.OpenButton;
-        Assert.NotNull(openNewRepoButton);
-        Assert.NotNull(openNewRepoButton.Command);
-        Assert.True(openNewRepoButton.Command.CanExecute(null));
+        Assert.NotNull(vm.Router.CurrentViewModel);
     }
 
     [AvaloniaFact]
     public void CanSelectFolder()
     {
-        var vm = new MainWindowViewModel();
+        var vm = new StartViewModel(new MainWindowViewModel());
         vm.SelectFolder.RegisterHandler(interaction => interaction.SetOutput("MyPath"));
-
+        
         vm.BrowseRepoCommand.Execute();
-
+        
         Assert.Equal("MyPath", vm.SelectedFolderPath);
+    }
+
+    [AvaloniaFact]
+    public void SelectedRepoDisplaysItsStatus()
+    {
+        // TODO @evgn check that once a repo is selected, the status is displayed
     }
 }

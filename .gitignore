@@ -2,4 +2,4 @@
 /MyGitClient/.idea
 /MyGitClient/**/bin
 /MyGitClient/**/obj
-*.user
+/MyGitClient/*.user

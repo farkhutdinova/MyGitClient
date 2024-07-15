@@ -1,8 +1,10 @@
 <Window xmlns="https://github.com/avaloniaui"
+        xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:MyGitClient.Executable.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:app="clr-namespace:MyGitClient.Executable"
         mc:Ignorable="d"
         d:DesignWidth="600" d:DesignHeight="450"
         x:Class="MyGitClient.Executable.Views.MainWindow"
@@ -11,30 +13,35 @@
         WindowStartupLocation="CenterScreen"
         Icon="/Assets/avalonia-logo.ico"
         Title="MyGitClient">
-
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-
-    <StackPanel Margin="10">
-        <Grid RowDefinitions="*,*,Auto">
-            <DockPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,10">
-                <Label DockPanel.Dock="Left" VerticalContentAlignment="Center" Content="Open existing repository"/>
-                <Button DockPanel.Dock="Right" VerticalContentAlignment="Center" Name="OpenButton" Content="Browse" Command="{Binding BrowseRepoCommand}"/>
-            </DockPanel>
-            <TextBlock Grid.Row="1" Text="Previously opened:" Margin="0,0,0,10"/>
-            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible">
-                <ItemsControl ItemsSource="{Binding PreviouslyOpenedRepositories}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Margin="0,5" Padding="10" Background="LightGray">
-                                <TextBlock Text="{Binding}"/>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </Grid>
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <rxui:RoutedViewHost Grid.Row="0" Router="{Binding Router}">
+            <rxui:RoutedViewHost.DefaultContent>
+                <TextBlock Text="Welcome to MyGitClient"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+            </rxui:RoutedViewHost.DefaultContent>
+            <rxui:RoutedViewHost.ViewLocator>
+                <!-- See AppViewLocator.cs section below -->
+                <app:AppViewLocator />
+            </rxui:RoutedViewHost.ViewLocator>
+        </rxui:RoutedViewHost>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="15">
+            <StackPanel.Styles>
+                <Style Selector="StackPanel > :is(Control)">
+                    <Setter Property="Margin" Value="2"/>
+                </Style>
+                <Style Selector="StackPanel > TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+            </StackPanel.Styles>
+            <Button Content="Go next" Command="{Binding GoNext}" />
+            <!-- <Button Content="Go back" Command="{Binding GoBack}" /> -->
+            <!-- <TextBlock Text="{Binding Router.NavigationStack.Count}" /> -->
+        </StackPanel>
+    </Grid>
 
 </Window>
