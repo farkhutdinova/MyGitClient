@@ -25,7 +25,6 @@
                            VerticalAlignment="Center" />
             </rxui:RoutedViewHost.DefaultContent>
             <rxui:RoutedViewHost.ViewLocator>
-                <!-- See AppViewLocator.cs section below -->
                 <app:AppViewLocator />
             </rxui:RoutedViewHost.ViewLocator>
         </rxui:RoutedViewHost>
@@ -39,8 +38,7 @@
                 </Style>
             </StackPanel.Styles>
             <Button Content="Go next" Command="{Binding GoNext}" />
-            <!-- <Button Content="Go back" Command="{Binding GoBack}" /> -->
-            <!-- <TextBlock Text="{Binding Router.NavigationStack.Count}" /> -->
+            <Button Content="Go back" Command="{Binding GoBack}" />
         </StackPanel>
     </Grid>
 

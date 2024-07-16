@@ -3,13 +3,13 @@ using ReactiveUI;
 
 namespace MyGitClient.Executable.ViewModels;
 
-public class MainWindowViewModel : ReactiveObject, IScreen
+public sealed class MainWindowViewModel : ReactiveObject, IScreen
 {
     public RoutingState Router { get; } = new();
 
     public ReactiveCommand<Unit, IRoutableViewModel> GoNext { get; }
 
-    // public ReactiveCommand<Unit, IRoutableViewModel> GoBack => Router.NavigateBack;
+    public ReactiveCommand<Unit, IRoutableViewModel> GoBack => Router.NavigateBack;
 
     public MainWindowViewModel()
     {
