@@ -16,7 +16,7 @@ public class StartViewModel : ReactiveObject, IRoutableViewModel
         BrowseRepoCommand = ReactiveCommand.CreateFromTask(SelectFolderAsync);
     }
 
-    public string? UrlPathSegment => "start";
+    public string UrlPathSegment => "start";
 
     public IScreen HostScreen { get; }
     

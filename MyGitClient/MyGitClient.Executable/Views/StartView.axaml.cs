@@ -11,7 +11,7 @@ namespace MyGitClient.Executable.Views;
 
 public partial class StartView : ReactiveUserControl<StartViewModel>
 {
-    private IDisposable? _selectFilesInteractionDisposable;
+    private IDisposable _selectFilesInteractionDisposable;
 
     public StartView()
     {
