@@ -14,7 +14,10 @@ public sealed class MainWindowViewModel : ReactiveObject, IScreen
     public MainWindowViewModel()
     {
         GoNext = ReactiveCommand.CreateFromObservable(
-            () => Router.Navigate.Execute(new StartViewModel(this))
-        );
+            () =>
+            {
+                var openedHistory = RxApp.SuspensionHost.GetAppState<OpenedHistoryViewModel>();
+                return Router.Navigate.Execute(new StartViewModel(this, openedHistory));
+            });
     }
 }

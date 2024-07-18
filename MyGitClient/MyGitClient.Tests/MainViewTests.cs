@@ -24,7 +24,7 @@ public class MainViewTests
     [AvaloniaFact]
     public void CanSelectFolder()
     {
-        var vm = new StartViewModel(new MainWindowViewModel());
+        var vm = new StartViewModel(new MainWindowViewModel(), new OpenedHistoryViewModel());
         vm.SelectFolder.RegisterHandler(interaction => interaction.SetOutput("MyPath"));
         
         vm.BrowseRepoCommand.Execute();

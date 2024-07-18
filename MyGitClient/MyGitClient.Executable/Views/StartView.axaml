@@ -2,6 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
              xmlns:viewModels="clr-namespace:MyGitClient.Executable.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MyGitClient.Executable.Views.StartView"
@@ -14,11 +16,17 @@
             </DockPanel>
             <TextBlock Grid.Row="1" Text="Previously opened:" Margin="0,0,0,10"/>
             <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible">
-                <ItemsControl ItemsSource="{Binding PreviouslyOpenedRepositories}">
+                <ItemsControl ItemsSource="{Binding OpenedHistory.PreviouslyOpenedRepositories}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="0,5" Padding="10" Background="LightGray">
-                                <TextBlock Text="{Binding}"/>
+                                <TextBlock Text="{Binding}">
+                                    <i:Interaction.Behaviors>
+                                        <ia:EventTriggerBehavior EventName="DoubleTapped">
+                                            <InvokeCommandAction Command="{Binding $parent[ItemsControl].((viewModels:StartViewModel)DataContext).OpenRepoCommand}" CommandParameter="{Binding}"/>
+                                        </ia:EventTriggerBehavior>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
