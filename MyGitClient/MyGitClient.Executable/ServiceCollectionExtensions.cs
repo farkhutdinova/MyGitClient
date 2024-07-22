@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MyGitClient.Executable.ViewModels;
+using MyGitClient.Executable.ViewModels.Internal;
 
 namespace MyGitClient.Executable;
 

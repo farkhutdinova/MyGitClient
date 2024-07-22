@@ -3,22 +3,9 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using ReactiveUI;
 
-namespace MyGitClient.Executable.ViewModels;
+namespace MyGitClient.Executable.ViewModels.Internal;
 
-public interface IStartViewModelFactory
-{
-    StartViewModel Create(IScreen hostScreen);
-}
-
-public sealed class StartViewModelFactory(IOpenedRepositoryViewModelFactory openedRepositoryViewModelFactory) : IStartViewModelFactory
-{
-    public StartViewModel Create(IScreen hostScreen)
-    {
-        return new StartViewModel(hostScreen, openedRepositoryViewModelFactory);
-    }
-}
-
-public sealed class StartViewModel : ReactiveObject, IRoutableViewModel
+internal sealed class StartViewModel : ViewModelBase, IStartViewModel
 {
     private readonly IOpenedRepositoryViewModelFactory _openedRepositoryViewModelFactory;
 
@@ -43,7 +30,7 @@ public sealed class StartViewModel : ReactiveObject, IRoutableViewModel
 
     public ReactiveCommand<string, Unit> OpenRepoCommand { get; }
 
-    public OpenedHistoryViewModel OpenedHistory{ get; }
+    public OpenedHistoryViewModel OpenedHistory { get; }
 
     private async Task OpenSelectedRepo(string d)
     {

@@ -7,7 +7,7 @@
              xmlns:viewModels="clr-namespace:MyGitClient.Executable.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MyGitClient.Executable.Views.StartView"
-             x:DataType="viewModels:StartViewModel">
+             x:DataType="viewModels:IStartViewModel">
     <StackPanel Margin="10">
         <Grid RowDefinitions="*,*,Auto">
             <DockPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,10">
@@ -23,7 +23,7 @@
                                 <TextBlock Text="{Binding}">
                                     <i:Interaction.Behaviors>
                                         <ia:EventTriggerBehavior EventName="DoubleTapped">
-                                            <InvokeCommandAction Command="{Binding $parent[ItemsControl].((viewModels:StartViewModel)DataContext).OpenRepoCommand}" CommandParameter="{Binding}"/>
+                                            <InvokeCommandAction Command="{Binding $parent[ItemsControl].((viewModels:IStartViewModel)DataContext).OpenRepoCommand}" CommandParameter="{Binding}"/>
                                         </ia:EventTriggerBehavior>
                                     </i:Interaction.Behaviors>
                                 </TextBlock>

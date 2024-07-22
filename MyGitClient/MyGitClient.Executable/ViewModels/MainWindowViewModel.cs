@@ -3,7 +3,7 @@ using ReactiveUI;
 
 namespace MyGitClient.Executable.ViewModels;
 
-public sealed class MainWindowViewModel : ReactiveObject, IScreen
+public sealed class MainWindowViewModel : ViewModelBase, IScreen
 {
     public RoutingState Router { get; } = new();
 

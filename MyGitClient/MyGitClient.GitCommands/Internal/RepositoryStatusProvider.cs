@@ -1,12 +1,7 @@
 ﻿using System.Text;
 using LibGit2Sharp;
 
-namespace MyGitClient.GitCommands;
-
-public interface IRepositoryStatusProvider
-{
-    string GetStatus(string repoPath);
-}
+namespace MyGitClient.GitCommands.Internal;
 
 internal sealed class RepositoryStatusProvider : IRepositoryStatusProvider
 {

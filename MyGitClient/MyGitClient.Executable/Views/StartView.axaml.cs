@@ -9,7 +9,7 @@ using ReactiveUI;
 
 namespace MyGitClient.Executable.Views;
 
-public partial class StartView : ReactiveUserControl<StartViewModel>
+public partial class StartView : ReactiveUserControl<IStartViewModel>
 {
     private IDisposable _selectFilesInteractionDisposable;
 
@@ -18,12 +18,12 @@ public partial class StartView : ReactiveUserControl<StartViewModel>
         this.WhenActivated(_ => { });
         AvaloniaXamlLoader.Load(this);
     }
-    
+
     protected override void OnDataContextChanged(EventArgs e)
     {
         _selectFilesInteractionDisposable?.Dispose();
     
-        if (DataContext is StartViewModel vm)
+        if (DataContext is IStartViewModel vm)
         {
             _selectFilesInteractionDisposable =
                 vm.SelectFolder.RegisterHandler(async interaction =>
@@ -36,9 +36,9 @@ public partial class StartView : ReactiveUserControl<StartViewModel>
                             AllowMultiple = false,
                             Title = interaction.Input
                         });
-                
+
                     var selectedFolderPath = storageFiles.Select(f => f.Path.AbsolutePath).FirstOrDefault() ?? string.Empty;
-                
+
                     interaction.SetOutput(selectedFolderPath);
                 });
         }

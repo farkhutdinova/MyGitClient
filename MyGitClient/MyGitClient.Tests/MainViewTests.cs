@@ -1,5 +1,6 @@
 using Avalonia.Headless.XUnit;
 using MyGitClient.Executable.ViewModels;
+using MyGitClient.Executable.ViewModels.Internal;
 using MyGitClient.Executable.Views;
 using NSubstitute;
 using ReactiveUI;

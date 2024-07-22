@@ -5,7 +5,7 @@ using ReactiveUI;
 
 namespace MyGitClient.Executable.Views;
 
-public partial class OpenedRepositoryView : ReactiveUserControl<OpenedRepositoryViewModel>
+public partial class OpenedRepositoryView : ReactiveUserControl<IOpenedRepositoryViewModel>
 {
     public OpenedRepositoryView()
     {
