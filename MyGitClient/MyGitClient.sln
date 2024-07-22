@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyGitClient.Executable", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyGitClient.Tests", "MyGitClient.Tests\MyGitClient.Tests.csproj", "{92057D13-C83E-4F11-9C30-A2FB53FA25C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyGitClient.GitCommands", "MyGitClient.GitCommands\MyGitClient.GitCommands.csproj", "{DCFB7B9A-C3C8-41F0-809B-BAB041A00B4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{92057D13-C83E-4F11-9C30-A2FB53FA25C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92057D13-C83E-4F11-9C30-A2FB53FA25C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92057D13-C83E-4F11-9C30-A2FB53FA25C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCFB7B9A-C3C8-41F0-809B-BAB041A00B4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCFB7B9A-C3C8-41F0-809B-BAB041A00B4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCFB7B9A-C3C8-41F0-809B-BAB041A00B4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCFB7B9A-C3C8-41F0-809B-BAB041A00B4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

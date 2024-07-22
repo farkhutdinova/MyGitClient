@@ -1,6 +1,8 @@
 using Avalonia.Headless.XUnit;
 using MyGitClient.Executable.ViewModels;
 using MyGitClient.Executable.Views;
+using NSubstitute;
+using ReactiveUI;
 
 namespace MyGitClient.Tests;
 
@@ -9,8 +11,8 @@ public class MainViewTests
     [AvaloniaFact]
     public void CanBrowseRepo()
     {
-        var vm = new MainWindowViewModel();
-        
+        var vm = new MainWindowViewModel(Substitute.For<IStartViewModelFactory>());
+
         var window = new MainWindow
         {
             DataContext = vm
@@ -24,11 +26,11 @@ public class MainViewTests
     [AvaloniaFact]
     public void CanSelectFolder()
     {
-        var vm = new StartViewModel(new MainWindowViewModel(), new OpenedHistoryViewModel());
+        var vm = new StartViewModel(Substitute.For<IScreen>(), Substitute.For<IOpenedRepositoryViewModelFactory>());
         vm.SelectFolder.RegisterHandler(interaction => interaction.SetOutput("MyPath"));
-        
+
         vm.BrowseRepoCommand.Execute();
-        
+
         Assert.Equal("MyPath", vm.SelectedFolderPath);
     }
 

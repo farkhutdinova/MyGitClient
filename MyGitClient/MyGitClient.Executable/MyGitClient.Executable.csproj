@@ -30,4 +30,8 @@
         <!-- We need it so tests can use generated controls by name -->
         <InternalsVisibleTo Include="MyGitClient.Tests" />
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MyGitClient.GitCommands\MyGitClient.GitCommands.csproj" />
+    </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MyGitClient.Executable.UserSettings;
 using MyGitClient.Executable.ViewModels;
 using MyGitClient.Executable.Views;
+using MyGitClient.GitCommands;
 using ReactiveUI;
 
 namespace MyGitClient.Executable;
@@ -17,6 +18,7 @@ public class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         var collection = new ServiceCollection();
+        collection.AddRepositoryStatusProvider();
         collection.AddCommonServices();
 
         var services = collection.BuildServiceProvider();

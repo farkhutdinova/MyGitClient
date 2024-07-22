@@ -5,7 +5,7 @@ using ReactiveUI;
 namespace MyGitClient.Executable.ViewModels;
 
 [DataContract]
-public class OpenedHistoryViewModel : ReactiveObject
+public sealed class OpenedHistoryViewModel : ReactiveObject
 {
     [DataMember]
     public ObservableCollection<string> PreviouslyOpenedRepositories { get; set; } = [];

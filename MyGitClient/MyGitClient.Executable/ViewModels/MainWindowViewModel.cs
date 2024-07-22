@@ -11,13 +11,9 @@ public sealed class MainWindowViewModel : ReactiveObject, IScreen
 
     public ReactiveCommand<Unit, IRoutableViewModel> GoBack => Router.NavigateBack;
 
-    public MainWindowViewModel()
+    public MainWindowViewModel(IStartViewModelFactory startViewModelFactory)
     {
         GoNext = ReactiveCommand.CreateFromObservable(
-            () =>
-            {
-                var openedHistory = RxApp.SuspensionHost.GetAppState<OpenedHistoryViewModel>();
-                return Router.Navigate.Execute(new StartViewModel(this, openedHistory));
-            });
+            () => Router.Navigate.Execute(startViewModelFactory.Create(this)));
     }
 }

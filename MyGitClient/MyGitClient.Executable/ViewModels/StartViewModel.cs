@@ -5,12 +5,28 @@ using ReactiveUI;
 
 namespace MyGitClient.Executable.ViewModels;
 
+public interface IStartViewModelFactory
+{
+    StartViewModel Create(IScreen hostScreen);
+}
+
+public sealed class StartViewModelFactory(IOpenedRepositoryViewModelFactory openedRepositoryViewModelFactory) : IStartViewModelFactory
+{
+    public StartViewModel Create(IScreen hostScreen)
+    {
+        return new StartViewModel(hostScreen, openedRepositoryViewModelFactory);
+    }
+}
+
 public sealed class StartViewModel : ReactiveObject, IRoutableViewModel
 {
-    public StartViewModel(IScreen hostScreen, OpenedHistoryViewModel openedHistoryViewModel)
+    private readonly IOpenedRepositoryViewModelFactory _openedRepositoryViewModelFactory;
+
+    public StartViewModel(IScreen hostScreen, IOpenedRepositoryViewModelFactory openedRepositoryViewModelFactory)
     {
         HostScreen = hostScreen;
-        OpenedHistory = openedHistoryViewModel;
+        _openedRepositoryViewModelFactory = openedRepositoryViewModelFactory;
+        OpenedHistory = RxApp.SuspensionHost.GetAppState<OpenedHistoryViewModel>();
         BrowseRepoCommand = ReactiveCommand.CreateFromTask(SelectFolderAsync);
         OpenRepoCommand = ReactiveCommand.CreateFromTask<string>(OpenSelectedRepo);
     }
@@ -31,13 +47,13 @@ public sealed class StartViewModel : ReactiveObject, IRoutableViewModel
 
     private async Task OpenSelectedRepo(string d)
     {
-        await HostScreen.Router.Navigate.Execute(new OpenedRepositoryViewModel(HostScreen, d));
+        await HostScreen.Router.Navigate.Execute(_openedRepositoryViewModelFactory.Create(HostScreen, d));
     }
 
     private async Task SelectFolderAsync()
     {
         SelectedFolderPath = await SelectFolder.Handle("Select a repository to open");
         OpenedHistory.AddNew(SelectedFolderPath);
-        await HostScreen.Router.Navigate.Execute(new OpenedRepositoryViewModel(HostScreen, SelectedFolderPath));
+        await HostScreen.Router.Navigate.Execute(_openedRepositoryViewModelFactory.Create(HostScreen, SelectedFolderPath));
     }
 }

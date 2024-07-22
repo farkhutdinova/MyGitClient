@@ -1,16 +1,30 @@
-﻿using System.Text;
-using LibGit2Sharp;
+﻿using MyGitClient.GitCommands;
 using ReactiveUI;
 
 namespace MyGitClient.Executable.ViewModels;
 
+public interface IOpenedRepositoryViewModelFactory
+{
+    OpenedRepositoryViewModel Create(IScreen hostScreen, string repoPath);
+}
+
+public sealed class OpenedRepositoryViewModelFactory(IRepositoryStatusProvider repositoryStatusProvider) : IOpenedRepositoryViewModelFactory
+{
+    public OpenedRepositoryViewModel Create(IScreen hostScreen, string repoPath)
+    {
+        return new OpenedRepositoryViewModel(hostScreen, repoPath, repositoryStatusProvider);
+    }
+}
+
 public sealed class OpenedRepositoryViewModel : ReactiveObject, IRoutableViewModel
 {
     private readonly string _selectedFolderPath;
+    private readonly IRepositoryStatusProvider _repositoryStatusProvider;
 
-    public OpenedRepositoryViewModel(IScreen hostScreen, string selectedFolderPath)
+    public OpenedRepositoryViewModel(IScreen hostScreen, string selectedFolderPath, IRepositoryStatusProvider repositoryStatusProvider)
     {
         _selectedFolderPath = selectedFolderPath;
+        _repositoryStatusProvider = repositoryStatusProvider;
         HostScreen = hostScreen;
         Status = GetStatus();
     }
@@ -21,16 +35,5 @@ public sealed class OpenedRepositoryViewModel : ReactiveObject, IRoutableViewMod
 
     public string Status { get; }
 
-    private string GetStatus()
-    {
-        // TODO @evgn move to separate assembly
-        var statusStringBuilder = new StringBuilder();
-        using var repo = new Repository(_selectedFolderPath);
-        var status = repo.RetrieveStatus();
-        var isDirty = status.IsDirty;
-        statusStringBuilder.Append($"On branch {repo.Head.FriendlyName}");
-        statusStringBuilder.AppendLine();
-        statusStringBuilder.Append(isDirty ? "There are some changes" : "No changes");
-        return statusStringBuilder.ToString();
-    }
+    private string GetStatus() => _repositoryStatusProvider.GetStatus(_selectedFolderPath);
 }
