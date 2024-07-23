@@ -1,19 +1,11 @@
-﻿using System.Text;
-using LibGit2Sharp;
+﻿namespace MyGitClient.GitCommands.Internal;
 
-namespace MyGitClient.GitCommands.Internal;
-
-internal sealed class RepositoryStatusProvider : IRepositoryStatusProvider
+internal sealed class RepositoryStatusProvider(IRepositoryFactory repositoryFactory) : IRepositoryStatusProvider
 {
-    public string GetStatus(string repoPath)
+    public RepositoryStatus GetStatus(string repoPath)
     {
-        var statusStringBuilder = new StringBuilder();
-        using var repo = new Repository(repoPath);
+        using var repo = repositoryFactory.Create(repoPath);
         var status = repo.RetrieveStatus();
-        var isDirty = status.IsDirty;
-        statusStringBuilder.Append($"On branch {repo.Head.FriendlyName}");
-        statusStringBuilder.AppendLine();
-        statusStringBuilder.Append(isDirty ? "There are some changes" : "No changes");
-        return statusStringBuilder.ToString();
+        return status;
     }
 }

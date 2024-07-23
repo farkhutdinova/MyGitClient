@@ -6,5 +6,20 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MyGitClient.Executable.Views.OpenedRepositoryView"
              x:DataType="viewModels:IOpenedRepositoryViewModel">
-    <TextBlock Text="{Binding Status}"/>
+    <Grid RowDefinitions="Auto,*">
+        <TextBlock Text="{Binding Status.BranchName}" Foreground="{StaticResource ThemeAccentBrush}"/>
+        <Border Grid.Row="1" BorderBrush="{StaticResource ThemeBorderMidBrush}">
+            <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <ItemsControl ItemsSource="{Binding Status.ModifiedFiles}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,5" Padding="10">
+                                <TextBlock Text="{Binding Path=Path}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+    </Grid>
 </UserControl>

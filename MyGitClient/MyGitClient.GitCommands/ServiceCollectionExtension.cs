@@ -7,6 +7,7 @@ public static class ServiceCollectionExtension
 {
     public static void AddRepositoryStatusProvider(this IServiceCollection services)
     {
+        services.AddSingleton<IRepositoryFactory, RepositoryFactory>();
         services.AddTransient<IRepositoryStatusProvider, RepositoryStatusProvider>();
     }
 }

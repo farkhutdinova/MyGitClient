@@ -2,5 +2,5 @@
 
 public interface IRepositoryStatusProvider
 {
-    string GetStatus(string repoPath);
+    RepositoryStatus GetStatus(string repoPath);
 }

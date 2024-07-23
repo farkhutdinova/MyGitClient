@@ -12,5 +12,5 @@ internal sealed class OpenedRepositoryViewModel(
 
     public IScreen HostScreen { get; } = hostScreen;
 
-    public string Status => repositoryStatusProvider.GetStatus(selectedFolderPath);
+    public RepositoryStatus Status => repositoryStatusProvider.GetStatus(selectedFolderPath);
 }

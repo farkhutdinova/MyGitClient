@@ -3,13 +3,25 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="LibGit2Sharp" Version="0.30.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+      <PackageReference Include="System.Reactive" Version="6.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- We need it so tests can use generated controls by name -->
+        <InternalsVisibleTo Include="MyGitClient.Tests" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+        </AssemblyAttribute>
     </ItemGroup>
 
 </Project>

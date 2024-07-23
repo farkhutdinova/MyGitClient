@@ -7,7 +7,7 @@ using ReactiveUI;
 
 namespace MyGitClient.Tests;
 
-public class MainViewTests
+public sealed class MainViewTests
 {
     [AvaloniaFact]
     public void CanBrowseRepo()

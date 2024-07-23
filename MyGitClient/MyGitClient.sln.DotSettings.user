@@ -2,6 +2,8 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=811c3841_002D2982_002D4fb6_002Da25a_002D4ac9685173dd/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="MainViewTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::92057D13-C83E-4F11-9C30-A2FB53FA25C4::net8.0::MyGitClient.Tests.MainViewTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::92057D13-C83E-4F11-9C30-A2FB53FA25C4::net8.0::MyGitClient.Tests.GitCommands.RepositoryStatusProviderTests.GetStatusReturnsCorrectStatus&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::92057D13-C83E-4F11-9C30-A2FB53FA25C4::net8.0::MyGitClient.Tests.GitCommands.RepositoryStatusProviderTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>
