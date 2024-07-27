@@ -6,20 +6,43 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MyGitClient.Executable.Views.OpenedRepositoryView"
              x:DataType="viewModels:IOpenedRepositoryViewModel">
-    <Grid RowDefinitions="Auto,*">
-        <TextBlock Text="{Binding Status.BranchName}" Foreground="{StaticResource ThemeAccentBrush}"/>
-        <Border Grid.Row="1" BorderBrush="{StaticResource ThemeBorderMidBrush}">
+    <Grid RowDefinitions="Auto,Auto,*,Auto,Auto,*,Auto">
+        <TextBlock Text="{Binding BranchName}" Margin="0,0,0,20" Foreground="{StaticResource ThemeAccentBrush}"/>
+
+        <TextBlock Grid.Row="1" Text="UNSTAGED" FontWeight="Bold"/>
+        <Border Grid.Row="2" Margin="0,10,0,20" BorderBrush="{StaticResource ThemeBorderMidBrush}">
             <ScrollViewer VerticalScrollBarVisibility="Visible">
-                <ItemsControl ItemsSource="{Binding Status.ModifiedFiles}">
+                <ItemsControl ItemsSource="{Binding ModifiedFiles}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Margin="0,5" Padding="10">
-                                <TextBlock Text="{Binding Path=Path}"/>
+                            <Border Margin="0,5">
+                                <TextBlock Text="{Binding Path=Name}"/>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
         </Border>
+
+        <GridSplitter Grid.Row="3"/>
+
+        <TextBlock Grid.Row="4" Text="STAGED" FontWeight="Bold"/>
+        <Border Grid.Row="5" Margin="0,10,0,0" BorderBrush="{StaticResource ThemeBorderMidBrush}">
+            <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <ItemsControl ItemsSource="{Binding StagedFiles}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,5">
+                                <TextBlock Text="{Binding Path=Name}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+        
+        <DockPanel Grid.Row="6">
+            <Button DockPanel.Dock="Right" Content="Commit" Command="{Binding CommitCommand}"/>
+        </DockPanel>
     </Grid>
 </UserControl>

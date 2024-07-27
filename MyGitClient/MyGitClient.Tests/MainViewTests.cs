@@ -2,6 +2,7 @@ using Avalonia.Headless.XUnit;
 using MyGitClient.Executable.ViewModels;
 using MyGitClient.Executable.ViewModels.Internal;
 using MyGitClient.Executable.Views;
+using MyGitClient.GitCommands;
 using NSubstitute;
 using ReactiveUI;
 
@@ -36,8 +37,27 @@ public sealed class MainViewTests
     }
 
     [AvaloniaFact]
-    public void SelectedRepoDisplaysItsStatus()
+    public void SelectedRepoDisplaysBranchName()
     {
-        // TODO @evgn check that once a repo is selected, the status is displayed
+        var repoStatus = new RepositoryStatus(false, "MyBranch", new List<ModifiedRepoFile>());
+        var repoStatusProvider = Substitute.For<IRepositoryStatusProvider>();
+        repoStatusProvider.GetStatus("MyPath").Returns(repoStatus);
+
+        var vm = new OpenedRepositoryViewModel(Substitute.For<IScreen>(), "MyPath", repoStatusProvider, Substitute.For<ICommitCommand>());
+
+        Assert.Equal("MyBranch", vm.BranchName);
+    }
+
+    [AvaloniaFact]
+    public void CanStageWhenRepoHasUnstagedModifiedFile()
+    {
+        var repoFile = new ModifiedRepoFile("FilePath", false);
+        var repoStatus = new RepositoryStatus(true, "MyBranch", new List<ModifiedRepoFile> {repoFile});
+        var repoStatusProvider = Substitute.For<IRepositoryStatusProvider>();
+        repoStatusProvider.GetStatus("MyPath").Returns(repoStatus);
+
+        var vm = new OpenedRepositoryViewModel(Substitute.For<IScreen>(), "MyPath", repoStatusProvider, Substitute.For<ICommitCommand>());
+
+        // Assert.True(vm.StageCommand.Subscribe());
     }
 }

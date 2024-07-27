@@ -13,7 +13,7 @@ public sealed class RepositoryStatusProviderTests
         var repositoryFactoryMock = Substitute.For<IRepositoryFactory>();
         var repositoryMock = Substitute.For<IRepositoryWrapper>();
         repositoryMock.RetrieveStatus()
-            .Returns(new RepositoryStatus(true, "MyBranch", new List<RepoFile> {new("FilePath", true)}));
+            .Returns(new RepositoryStatus(true, "MyBranch", new List<ModifiedRepoFile> {new("FilePath", false)}));
         repositoryFactoryMock.Create("MyPath").Returns(repositoryMock);
 
         var sut = new RepositoryStatusProvider(repositoryFactoryMock);
@@ -22,6 +22,6 @@ public sealed class RepositoryStatusProviderTests
 
         Assert.Equal("MyBranch", status.BranchName);
         Assert.True(status.IsDirty);
-        Assert.Contains(status.ModifiedFiles, x => x.Path == "FilePath" && x.IsModified);
+        Assert.Contains(status.ModifiedFiles, x => x.Path == "FilePath" && x is {IsStaged: false});
     }
 }

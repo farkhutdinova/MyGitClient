@@ -9,5 +9,6 @@ public static class ServiceCollectionExtension
     {
         services.AddSingleton<IRepositoryFactory, RepositoryFactory>();
         services.AddTransient<IRepositoryStatusProvider, RepositoryStatusProvider>();
+        services.AddSingleton<ICommitCommand, CommitCommand>();
     }
 }

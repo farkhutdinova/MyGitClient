@@ -1,9 +1,16 @@
-﻿using MyGitClient.GitCommands;
+using System.Collections.Generic;
+using System.Reactive;
 using ReactiveUI;
 
 namespace MyGitClient.Executable.ViewModels;
 
 public interface IOpenedRepositoryViewModel : IRoutableViewModel
 {
-    RepositoryStatus Status { get; }
+    string BranchName { get; }
+
+    IEnumerable<IModifiedRepoFileViewModel> ModifiedFiles { get; }
+
+    IEnumerable<IModifiedRepoFileViewModel> StagedFiles { get; }
+
+    ReactiveCommand<Unit, Unit> CommitCommand { get; }
 }
